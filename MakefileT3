@@ -34,7 +34,7 @@ $(OBJ)/serverT3.o: $(SRC)/serverT3.c $(INC)/bib_T3.fml.h
 		-o $(OBJ)/serverT3.o
 
 $(OBJ)/clienteT3.o: $(SRC)/clienteT3.c $(INC)/bib_T3.fml.h
-  $(CC) -c -I$(TUXDIR)/include -I$(INC) $(SRC)/clienteT3.c \
+	$(CC) -c -I$(TUXDIR)/include -I$(INC) $(SRC)/clienteT3.c \
 		-o $(OBJ)/clienteT3.o
 
 # Borrado
