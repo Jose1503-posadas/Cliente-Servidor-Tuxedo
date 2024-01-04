@@ -1,0 +1,41 @@
+# Directorios/Rutas 
+BIN = ../bin
+OBJ = ../obj
+SRC = ../src
+INC = ../inc
+FML = ../fml
+CC = cc
+CFLAGS = -L${POSTGRES_HOME}/lib
+
+# Generacion de Aplicacion 
+all: campos_fml serverT3 clienteT3
+
+# Compilacion de campos FML
+campos_fml: $(FML)/bib_T3.fml
+	mkfldhdr32 $(FML)/bib_T3.fml
+	mv bib_T3.fml.h $(INC)
+
+# Generacion de Servidores
+serverT3: $(OBJ)/serverT3.o
+	@echo Compilando el servidor serverT3
+	CC="$(CC)" buildserver -v -f $(OBJ)/serverT3.o \
+		-f "-I$(INC)"\
+		-o $(BIN)/serverT3 \
+		-s servCalcAreaCirculo,servCalcEcSegGrado,servCalcProdPunto
+
+# Generacion de Cliente
+clienteT3: $(OBJ)/clienteT3.o
+	@echo Compilando el cliente clienteT3 
+	CC="$(CC)" buildclient -f $(OBJ)/clienteT3.o -o $(BIN)/clienteT3
+
+# Generacion de Ficheros Objeto
+$(OBJ)/serverT3.o: $(SRC)/serverT3.c $(INC)/bib_T3.fml.h
+	$(CC) -c -I$(TUXDIR)/include -I$(INC) $(SRC)/serverT3.c \
+		-o $(OBJ)/serverT3.o
+
+$(OBJ)/clienteT3.o: $(SRC)/clienteT3.c $(INC)/bib_T3.fml.h
+  $(CC) -c -I$(TUXDIR)/include -I$(INC) $(SRC)/clienteT3.c \
+		-o $(OBJ)/clienteT3.o
+
+# Borrado
+clean:	rm -f $(OBJ)/*.o $(BIN)/clienteT3 $(BIN)/serverT3
