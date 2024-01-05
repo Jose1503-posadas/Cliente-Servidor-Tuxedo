@@ -1,0 +1,17 @@
+#Nombre id	tipo	flag	comentario
+#
+BASE	2080	float	-	Base
+ALTURA	2090	float	-	Altura
+AREA	2100	float	-	Area
+X1	2110	float	-	Punto1 x1
+Y1	2120	float	-	Punto1 y1
+Z1	2130	float	-	Punto1 z1
+X2	2140	float	-	Punto2 X2
+Y2	2150	float	-	Punto2 Y2
+Z2	2160	float	-	Punto2 z2
+DISTAN	2170	float	-	Distancia
+AX	2180	float	-	ax
+AY	2190	float	-	ay
+BX	2200	float	-	bx
+BY	2210	float	-	by
+PCRUZ	2220	float	-	Producto cruz
