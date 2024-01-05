@@ -25,13 +25,13 @@ void servCalcAreaTriaEqu(TPSVCINFO * rqst) {
     /* Obtener campos FML del buffer de entrada */
     /*Base*/
     if (Fget32(fbfr, BASE, 0, (char *)&base, 0) < 0) {
-        userlog("No se leyó el radio");
-        tpreturn(TPFAIL, 0, (char *) fbfr, 0L, 0);
+        userlog("No se leyó la base");
+        tpreturn(TPFAIL, 0, (char *)fbfr, 0L, 0);
     }
     /*altura*/  
     if (Fget32(fbfr, ALTURA, 0, (char *)&altura, 0) < 0) {
-        userlog("No se leyó el radio");
-        tpreturn(TPFAIL, 0, (char *) fbfr, 0L, 0);
+        userlog("No se leyó la altura");
+        tpreturn(TPFAIL, 0, (char *)fbfr, 0L, 0);
     }
     userlog("Base: [%f]", base);
     userlog("Altura: [%f]", altura);
@@ -62,28 +62,28 @@ void servCalcDistDosPtos(TPSVCINFO * rqst) {
    /* Obtener campos FML del buffer de entrada */
    /*Punto 1*/
    if (Fget32(fbfr, X1, 0, (char *)&x1, 0) < 0) {
-      userlog("No se leyo la constante A");
+      userlog("No se leyo x1");
       tpreturn (TPFAIL, 0, (char *) fbfr, 0L, 0);
    }
    if (Fget32(fbfr, Y1, 0, (char *)&y1, 0) < 0) {
-      userlog("No se leyo la constante B");
+      userlog("No se leyo y1");
       tpreturn (TPFAIL, 0, (char *) fbfr, 0L, 0);
    }
    if (Fget32(fbfr, Z1, 0, (char *)&z1, 0) < 0) {
-      userlog("No se leyo la constante C");
+      userlog("No se leyo z1");
       tpreturn (TPFAIL, 0, (char *) fbfr, 0L, 0);
    }
    /*Punto 2*/
    if (Fget32(fbfr, X2, 0, (char *)&x2, 0) < 0) {
-      userlog("No se leyo la constante A");
+      userlog("No se leyo x2");
       tpreturn (TPFAIL, 0, (char *) fbfr, 0L, 0);
    }
    if (Fget32(fbfr, Y2, 0, (char *)&y2, 0) < 0) {
-      userlog("No se leyo la constante B");
+      userlog("No se leyo y2");
       tpreturn (TPFAIL, 0, (char *) fbfr, 0L, 0);
    }
    if (Fget32(fbfr, Z2, 0, (char *)&z2, 0) < 0) {
-      userlog("No se leyo la constante C");
+      userlog("No se leyo z2");
       tpreturn (TPFAIL, 0, (char *) fbfr, 0L, 0);
    }
    userlog("X1: [%f]", x1);
@@ -95,10 +95,9 @@ void servCalcDistDosPtos(TPSVCINFO * rqst) {
 
    /* Calcular la distancia entre 2 puntos*/
     distancia = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2) + pow(z2 - z1, 2));
-    //distancia = 10;
-    /* Insertar las raices calculadas en el buffer  FML*/
+    /* Insertar la distancia calculada en el buffer  FML*/
     Fadd32(fbfr, DISTAN, (char *)&distancia, 0);
-    userlog("La distancia entre los dos puntoses: [%f]\n", distancia);
+    userlog("La distancia entre los dos puntos es: [%f]\n", distancia);
 
     tpreturn(TPSUCCESS, 0, rqst->data, 0L, 0);
 
@@ -114,7 +113,7 @@ void servCalcProdCruz(TPSVCINFO *rqst) {
    float pCruz;
    FBFR32 *fbfr = (FBFR32 *)rqst->data;
 
-   userlog ("Servicio servCalcProdPunto invocado.");
+   userlog ("Servicio servCalcProdCruz invocado.");
   
    /* Obtener los campos FML del buffer de entrada */
    if (Fget32(fbfr, AX, 0, (char *)&ax, 0) < 0) {
@@ -138,10 +137,10 @@ void servCalcProdCruz(TPSVCINFO *rqst) {
    userlog("BX: [%f]", bx);
    userlog("BY: [%f]", by);
 
-   /* Realizar producto punto */
+   /* Realizar producto cruz */
    pCruz = (ax * by) - (ay * bx);
 
-   // Agregar el resultado del producto punto al buffer FML
+   // Agregar el resultado del producto cruz al buffer FML
    Fadd32(fbfr, PCRUZ, (char *)&pCruz, 0);
    userlog("Resultado del producto cruz: [%f]", pCruz);
 
