@@ -8,9 +8,9 @@
 #include "bib_T3.fml.h"
 
 //Definicion de las funciones 
-int cliCalcAreaTriaEqu(float val1, float val2, float val3, float val4, float val5, float val6,  float *resultado);
-int cliCalcDistDosPtos(float val1, float val2, float val3, float val4, float val5, float val6,  float *resultado);
-int cliCalcProdCruz(float val1, float val2, float val3, float val4, float val5, float val6,  float *resultado);
+int cliCalcAreaTriaEqu(float val1, float val2, float val3, float val4, float val5, float val6,float *resultado);
+int cliCalcDistDosPtos(float val1, float val2, float val3, float val4, float val5, float val6,float *resultado);
+int cliCalcProdCruz(float val1, float val2, float val3, float val4, float val5, float val6, float *resultado);
 
 //Tipo de dato para calcular el area del triangulo 
 typedef int (*opera) (float val1, float val2, float val3, float val4, float val5, float val6,  float *resultado);
@@ -49,7 +49,7 @@ int main(int argc, char **argv){
    obtOpera = selecOperacion(Opc_oper);
    obtOpera(val1, val2, val3, val4, val5, val6, &resultado);
  
-   printf("Resultado: %f\n", resultado);
+   printf("Resultado: %f \n", resultado);
 
    return 0;
 }
@@ -75,7 +75,7 @@ opera selecOperacion(int ivA_oper){
 
 int cliCalcAreaTriaEqu(float val1, float val2, float val3, float val4, float val5, float val6,  float *resultado){
   int ivL_resLlamd;
-  int lvL_tamLongt;
+  long lvL_tamLongt;
   float fvL_recValor;
   FBFR32 *fbfr;
 
@@ -111,7 +111,7 @@ int cliCalcAreaTriaEqu(float val1, float val2, float val3, float val4, float val
   }
   /* Invocamos servicio de calculo de area de un triangulo equilatero*/
   printf("Llamada al servicio 'servCalcAreaTriaEqu'\n");
-  if(tpcall("servCalcAreaTriaEqu", (char *) fbfr, 0, (char **)&fbfr, (long*)&lvL_tamLongt, 0L) == -1) {
+  if(tpcall("servCalcAreaTriaEqu", (char *)fbfr, 0, (char **)&fbfr, (long*)&lvL_tamLongt, 0L) == -1) {
     printf("Error en la llamada al servicio: tperrno = %d\n", tperrno);
     printf("Liberamos el buffer y desconectamos de la aplicacion\n");
     tpfree((char *)fbfr);
@@ -120,10 +120,9 @@ int cliCalcAreaTriaEqu(float val1, float val2, float val3, float val4, float val
 }
   /* Lectura de resultados */
   if(Fget32(fbfr, AREA, 0, (char *)&fvL_recValor, 0) < 0){
-  userlog("No se leyo el resultado\n");
-  tpreturn (TPFAIL, 0, (char*)fbfr, 0L,0) ;
+  	userlog("No se leyo el resultado\n");
+  	tpreturn (TPFAIL, 0, (char*)fbfr, 0L,0) ;
   }
-
   *resultado = fvL_recValor;
   printf("Liberamos buffer y desconectamos de la aplicación\n");
   tpfree((char *)fbfr);
@@ -133,7 +132,7 @@ int cliCalcAreaTriaEqu(float val1, float val2, float val3, float val4, float val
 
 int cliCalcDistDosPtos(float val1, float val2, float val3, float val4, float val5, float val6,  float *resultado){
   int ivL_resLlamd;
-  int lvL_tamLongt;
+  long lvL_tamLongt;
   float fvL_recValor;
   FBFR32 *fbfr;
 
@@ -206,11 +205,12 @@ int cliCalcDistDosPtos(float val1, float val2, float val3, float val4, float val
   }
   /* Lectura de resultados */
   if(Fget32(fbfr, DISTAN, 0, (char *)&fvL_recValor, 0) < 0) {
-  userlog("No se leyo el resultado raiz 1\n");
+  userlog("No se leyo el resultado\n");
   tpreturn(TPFAIL, 0, (char *)fbfr, 0L, 0);
   }
-  
+
   *resultado = fvL_recValor;
+
   printf("Liberamos buffer y desconectamos de la aplicación\n");
   tpfree((char*)fbfr);
   tpterm();
