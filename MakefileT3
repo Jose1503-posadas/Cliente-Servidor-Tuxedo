@@ -21,7 +21,8 @@ serverT3: $(OBJ)/serverT3.o
 	CC="$(CC)" buildserver -v -f $(OBJ)/serverT3.o \
 		-f "-I$(INC)"\
 		-o $(BIN)/serverT3 \
-		-s servCalcAreaCirculo,servCalcEcSegGrado,servCalcProdPunto
+		-s servCalcAreaTriaEqu,servCalcDistDosPtos,servCalcProdCruz \
+		-l "-L$(TUXDIR)/lib -ltux -lbuft -lfml -lfml32 -lengine -ldl -lpthread -lm"
 
 # Generacion de Cliente
 clienteT3: $(OBJ)/clienteT3.o
