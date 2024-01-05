@@ -11,7 +11,7 @@ Compilacion
    - tmloadcf -y tuxconfigT3
    - tmboot -y
    - tmadmin
-     - psc
+   - psc
 5. Ubicarse en la ruta de los binarios /bin
      - cd ../bin
 7. Ejecutar el archivo sin parametro para ver las instrucciones
